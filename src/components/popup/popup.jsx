@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { Resizable } from 're-resizable';
 
 import TabItem from '../tab-item/tab-item.jsx';
 import {
@@ -59,6 +60,7 @@ export default class Popup extends React.Component {
     const {filter, windows, mru } = this.state;
     const theme = themes[window.localStorage.getItem('theme')] || themes.light;
     return (
+      <Resizable className="some">
       <ThemeProvider theme={theme}>
         <Navigation>
           <Filter
@@ -98,6 +100,7 @@ export default class Popup extends React.Component {
           }
         </Main>
       </ThemeProvider>
+      </Resizable>
     );
   }
 }
