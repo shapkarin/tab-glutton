@@ -72,4 +72,12 @@ export const Title = styled.h2`
 export const TabList = styled.ul`
   margin: 0;
   padding: 0;
+  padding-left: ${({ editor }) => editor ? '40px' : 0};
+`;
+
+export const ChangeList = styled.svg`
+  padding-left: 10px;  
+  width: 44px;
+  height: 44px;
+  fill: #fff;
 `;

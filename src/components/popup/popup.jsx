@@ -10,7 +10,8 @@ import {
   Section,
   Header,
   Title,
-  TabList
+  TabList,
+  ChangeList
 } from './style.js';
 import themes, { DEFAULT_THEME } from '../../themes';
 
@@ -20,8 +21,10 @@ export default class Popup extends React.Component {
     this.state = {
       windows: [],
       filter: '',
-      mru: {}
+      mru: {},
+      editor: false
     };
+    this.toggleEditor = this.toggleEditor.bind(this);
   }
   componentDidMount() {
     chrome.runtime.sendMessage({action: 'mru'}, (mru) => {
@@ -54,6 +57,9 @@ export default class Popup extends React.Component {
       this.setState({windows});
     });
   }
+  toggleEditor(){
+    this.setState({ editor: !this.state.editor})
+  }
   render() {
     const {filter, windows, mru } = this.state;
     const theme = themes[window.localStorage.getItem('theme')] || themes[DEFAULT_THEME];
@@ -67,6 +73,13 @@ export default class Popup extends React.Component {
             placeholder="Search"
             onChange={this.filter.bind(this)}
           />
+          <ChangeList
+            viewBox="0 0 24 24"
+            onClick={this.toggleEditor}
+          >
+            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </ChangeList>
         </Navigation>
         <Main>
           {
@@ -86,7 +99,7 @@ export default class Popup extends React.Component {
                 <Header>
                   <Title>{$window.tabs.length} tabs</Title>
                 </Header>
-                <TabList>
+                <TabList editor={this.state.editor}>
                   {
                     $window.tabs
                       .filter(tab => filter.length === 0 || tab.title.toLocaleLowerCase().indexOf(filter) >= 0 || tab.url.toLocaleLowerCase().indexOf(filter) >= 0)
