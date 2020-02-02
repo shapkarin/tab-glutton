@@ -22,7 +22,8 @@ export default class Popup extends React.Component {
       windows: [],
       filter: '',
       mru: {},
-      editor: false
+      editor: false,
+      selected: []
     };
     this.toggleEditor = this.toggleEditor.bind(this);
   }
@@ -57,8 +58,15 @@ export default class Popup extends React.Component {
       this.setState({windows});
     });
   }
+  selectTab(tab, event){
+    event.stopPropagation();
+    this.setState({ select: [...this.state.select, tab.id] })
+  }
+  closeTabs(){
+
+  }
   toggleEditor(){
-    this.setState({ editor: !this.state.editor})
+    this.setState({ editor: !this.state.editor });
   }
   render() {
     const {filter, windows, mru } = this.state;
@@ -73,13 +81,19 @@ export default class Popup extends React.Component {
             placeholder="Search"
             onChange={this.filter.bind(this)}
           />
-          <ChangeList
+          {!this.state.editor ? <ChangeList
             viewBox="0 0 24 24"
             onClick={this.toggleEditor}
           >
             <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
           </ChangeList>
+          :
+          <div>
+            <span>Remove</span>
+            <span onClick={this.toggleEditor}>Done</span>
+          </div>
+          }
         </Navigation>
         <Main>
           {
@@ -99,11 +113,19 @@ export default class Popup extends React.Component {
                 <Header>
                   <Title>{$window.tabs.length} tabs</Title>
                 </Header>
-                <TabList editor={this.state.editor}>
+                <TabList>
                   {
                     $window.tabs
                       .filter(tab => filter.length === 0 || tab.title.toLocaleLowerCase().indexOf(filter) >= 0 || tab.url.toLocaleLowerCase().indexOf(filter) >= 0)
-                      .map(tab => <TabItem key={tab.id} tab={tab} onClose={this.closeTab.bind(this)}/>)
+                      .map(tab => (
+                        <TabItem
+                          key={tab.id}
+                          tab={tab}
+                          onClose={this.closeTab.bind(this)}
+                          onSelectTab={this.selectTab.bind(this)}
+                          editor={this.state.editor}
+                        />
+                      ))
                   }
                 </TabList>
               </Section>

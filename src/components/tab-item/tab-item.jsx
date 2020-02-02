@@ -23,7 +23,6 @@ export default class TabItem extends React.Component {
     if (isCollapsed === null) {
       isCollapsed = true;
     }
-
     this.setState({
       showUrl: localStorage['showURL'],
       isCollapsed,
@@ -68,7 +67,12 @@ export default class TabItem extends React.Component {
     }
     const pinClasses = `${isPinned ? 'pin--active' : ''}`;
     return (
-      <Item className={`${tab.selected ? `${cls} tabItem--active`  : cls} ${isPinned ? 'tabItem--pinned' : ''}`} onClick={this.focus.bind(this)}>
+      <Item 
+        className={`${tab.selected ? `${cls} tabItem--active`  : cls} ${isPinned ? 'tabItem--pinned' : ''}`}
+        onClick={this.focus.bind(this)}
+        editor={this.props.editor}
+      >
+        { this.props.editor && <input type="checkbox" onClick={evt => this.props.onSelectTab(tab, evt)}/> }
         <Favicon>
           <img src={tab.favIconUrl}></img>
           { tab.audible && 
