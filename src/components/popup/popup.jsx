@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import Tree from 'react-virtualized-tree'
+import Tree from 'react-virtualized-tree' // todo: use react-vtree and react-window
 
 import TabItem from '../tab-item/tab-item.jsx';
 import {
