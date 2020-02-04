@@ -2,6 +2,8 @@ import React from 'react';
 
 import themes, { DEFAULT_THEME } from '../../themes';
 
+import Popup from '../../components/popup/popup.jsx';
+
 export default class Options extends React.Component {
   constructor(props) {
     super(props);
@@ -40,10 +42,10 @@ export default class Options extends React.Component {
     this.setState({ isSeparated });
     window.localStorage.setItem('isSeparated', isSeparated);
   }
-  componentDidMount() {}
   render() {
     return (
       <div>
+        <Popup />
         <nav className="navigation">
           <img src="../img/tab_glutton_48.png" className="brand" />
           <h1>Tab Glutton</h1>
