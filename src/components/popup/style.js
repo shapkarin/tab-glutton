@@ -39,6 +39,7 @@ export const Filter = styled.input`
 `;
 
 export const Main = styled.main`
+  height: 400px;
   margin-top: 56px;
   background-color: ${({ theme: { main }}) => main}
 `;
@@ -60,6 +61,8 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   height: 48px;
+
+  top: ${({ index }) => index * '48'}px;
 `;
 
 export const Title = styled.h2`
