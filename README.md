@@ -1,8 +1,15 @@
+## Fork note
+[My PR](https://github.com/nsand/tab-glutton/pull/40) was made on February 5, 2021
+Which adds a bunch of features and refactoring
+Bottom line: Chrome's the implementation we've got these days:
+![Google Chrome same feature these days](.github/images/google-chrome-implementation.png)
+
 <p align="center">
 	<a href="https://chrome.google.com/webstore/detail/tab-glutton/ekfmaibfpamaegficfifofnlhalkbdfm" align="center" target="_blank">
 		<img src="./img/tab_glutton_128.png">
 	</a>
 </p>
+
 
 # Tab Glutton
 
